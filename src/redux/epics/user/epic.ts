@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, mapTo, delay } from 'rxjs/operators';
 import { ajax, AjaxError, AjaxResponse } from 'rxjs/ajax';
 import { Observable, of } from 'rxjs';
 import { BASE_SERVICE_URL } from '../../../common/AppConstants';
@@ -31,6 +31,27 @@ export function fetchUsersEpic(action$: any) {
           },
         ),
       );
+    }),
+  );
+}
+
+export function addUserEpic(action$): Observable<any> {
+  return action$.pipe(
+    ofType(UserActions.ADD_USER),
+    map((action: any) => {
+      const user = action.payload;
+
+      if (user) {
+        return {
+          type: UserActions.ADD_USER_SUCCESS,
+          payload: user,
+        };
+      } else {
+        return {
+          type: UserActions.ADD_USER_FAILURE,
+          payload: 'Add user exception',
+        };
+      }
     }),
   );
 }

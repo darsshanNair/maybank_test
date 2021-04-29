@@ -44,7 +44,7 @@ const HomeScreen = (props: Props): JSX.Element => {
         />
         <FlatList
           ItemSeparatorComponent={ItemSeparator}
-          data={props.getUserState.getUser.users}
+          data={props.userState.user.users}
           renderItem={renderItem}
           keyExtractor={(item: User) => item.id.toString()}
           contentContainerStyle={styles.flatlistView}
