@@ -6,9 +6,7 @@ import {
   StatusBar,
   StyleSheet,
   View,
-  Text,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from '../../components/Button';
 import { CardView } from '../../components/CardView';
 import { ItemSeparator } from '../../components/ItemSeparator';
@@ -40,7 +38,10 @@ const HomeScreen = (props: Props): JSX.Element => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Button title={'Add New User'} onPress={() => {}} />
+        <Button
+          title={'Add New User'}
+          onPress={() => props.navigation.navigate('NewUser')}
+        />
         <FlatList
           ItemSeparatorComponent={ItemSeparator}
           data={props.getUserState.getUser.users}
