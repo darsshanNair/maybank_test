@@ -6,6 +6,7 @@ import {
   StatusBar,
   StyleSheet,
   View,
+  Text,
 } from 'react-native';
 import { Button } from '../../components/Button';
 import { CardView } from '../../components/CardView';
@@ -35,6 +36,19 @@ const HomeScreen = (props: Props): JSX.Element => {
     />
   );
 
+  const renderEmptyListView = (): JSX.Element => {
+    return (
+      <View>
+        <View style={styles.viewCenterAlign}>
+          <Text style={styles.titleText}>List is Empty</Text>
+        </View>
+        <View style={styles.retryButtonMargin}>
+          <Button title={'Retry'} onPress={() => props.getUser()} />
+        </View>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -48,6 +62,11 @@ const HomeScreen = (props: Props): JSX.Element => {
           renderItem={renderItem}
           keyExtractor={(item: User) => item.id.toString()}
           contentContainerStyle={styles.flatlistView}
+          refreshing={props.userState.user.loading}
+          onRefresh={() => {
+            props.getUser();
+          }}
+          ListEmptyComponent={renderEmptyListView}
         />
       </View>
     </SafeAreaView>
@@ -66,6 +85,13 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  viewCenterAlign: {
+    alignItems: 'center',
+  },
+  retryButtonMargin: {
+    marginHorizontal: 80,
+    marginTop: 10,
   },
 });
 
