@@ -1,14 +1,14 @@
 import * as UserActions from '../../actions/user/actions';
-import { GetUserState } from '../../states/user/states';
+import { UserState } from '../../states/user/states';
 
-const getUserInitialState: GetUserState = {
+const getUserInitialState: UserState = {
   loading: false,
   users: [],
   error: '',
 };
 
-export const getUserReducer = (
-  state: GetUserState = getUserInitialState,
+export const userReducer = (
+  state: UserState = getUserInitialState,
   action: any,
 ) => {
   switch (action.type) {
@@ -25,6 +25,26 @@ export const getUserReducer = (
       };
 
     case UserActions.GET_USER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case UserActions.ADD_USER:
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case UserActions.ADD_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        users: [...state.users, action.payload],
+      };
+
+    case UserActions.ADD_USER_FAILURE:
       return {
         ...state,
         loading: false,

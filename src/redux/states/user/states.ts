@@ -1,6 +1,6 @@
 import { User } from '../../../models/User';
 
-export interface GetUserState {
+export interface UserState {
   loading: boolean;
   users: User[];
   error: string;

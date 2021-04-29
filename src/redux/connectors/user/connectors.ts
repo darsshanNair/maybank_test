@@ -2,12 +2,12 @@ import { Action } from 'redux';
 import { connect } from 'react-redux';
 import { User } from '../../../models/User';
 import * as UserActions from '../../actions/user/actions';
-import { GetUserState } from '../../states/user/states';
+import { UserState } from '../../states/user/states';
 
 export interface UserProps {
   getUser: () => Action;
   addUser: (user: User) => Action;
-  getUserState: GetUserState;
+  userState: UserState;
 }
 
 export const getUser = () => ({
@@ -31,8 +31,8 @@ const mapDispatchToProps = {
 /**
  * State
  */
-const mapStateToProps = (state: GetUserState) => ({
-  getUserState: state,
+const mapStateToProps = (state: UserState) => ({
+  userState: state,
 });
 
 const provideUserProps = connect(mapStateToProps, mapDispatchToProps);
