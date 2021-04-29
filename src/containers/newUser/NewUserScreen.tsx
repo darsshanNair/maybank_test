@@ -79,6 +79,9 @@ const NewUserScreen = (props: Props): JSX.Element => {
       ]);
     } else {
       props.addUser(newUserForm);
+      Alert.alert('Success', 'New user has been successfully added.', [
+        { text: 'OK' },
+      ]);
     }
   };
 
