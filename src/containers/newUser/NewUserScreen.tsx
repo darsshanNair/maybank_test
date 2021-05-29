@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import {
   Alert,
   SafeAreaView,
@@ -12,7 +10,7 @@ import {
   TextInput,
 } from 'react-native';
 import GetLocation from 'react-native-get-location';
-import { RootStackParamList } from '../../components/navigationComponents/stacks/MainStack';
+import { MainStackNavProps } from '../../components/navigationComponents/stacks/MainStack';
 import provideUserProps, {
   UserProps,
 } from '../../redux/connectors/user/connectors';
@@ -20,17 +18,7 @@ import { Button } from '../../components/Button';
 import { User } from '../../models/User';
 import { InitialNewUserFormData } from './InitialNewUserFormData';
 
-type NewUserScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'NewUser'
->;
-
-type NewUserScreenScreenRouteProp = RouteProp<RootStackParamList, 'NewUser'>;
-
-interface Props extends UserProps {
-  route: NewUserScreenNavigationProp;
-  navigation: NewUserScreenScreenRouteProp;
-}
+interface Props extends MainStackNavProps<'NewUser'>, UserProps {}
 
 const NewUserScreen = (props: Props): JSX.Element => {
   const [newUserForm, setFormFields] = useState<User>(InitialNewUserFormData);

@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  StackNavigationProp,
+} from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 import HomeScreen from '../../../containers/home/HomeScreen';
 import UserDetailsScreen from '../../../containers/details/UserDetailsScreen';
 import { User } from '../../../models/User';
@@ -9,6 +13,11 @@ export type RootStackParamList = {
   Home: undefined;
   UserDetails: { user: User };
   NewUser: undefined;
+};
+
+export type MainStackNavProps<T extends keyof RootStackParamList> = {
+  navigation: StackNavigationProp<RootStackParamList, T>;
+  route: RouteProp<RootStackParamList, T>;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
