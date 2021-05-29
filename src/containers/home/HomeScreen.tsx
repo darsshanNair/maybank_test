@@ -1,4 +1,3 @@
-import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
 import {
   FlatList,
@@ -11,17 +10,13 @@ import {
 import { Button } from '../../components/Button';
 import { CardView } from '../../components/CardView';
 import { ItemSeparator } from '../../components/ItemSeparator';
-import { RootStackParamList } from '../../components/navigationComponents/stacks/MainStack';
+import { MainStackNavProps } from '../../components/navigationComponents/stacks/MainStack';
 import { User } from '../../models/User';
 import provideUserProps, {
   UserProps,
 } from '../../redux/connectors/user/connectors';
 
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
-
-interface Props extends UserProps {
-  navigation: HomeScreenNavigationProp;
-}
+interface Props extends MainStackNavProps<'Home'>, UserProps {}
 
 const HomeScreen = (props: Props): JSX.Element => {
   useEffect(() => {

@@ -1,6 +1,4 @@
 import React from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import {
   Image,
   SafeAreaView,
@@ -10,22 +8,9 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import { RootStackParamList } from '../../components/navigationComponents/stacks/MainStack';
+import { MainStackNavProps } from '../../components/navigationComponents/stacks/MainStack';
 
-type UserDetailsScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'UserDetails'
->;
-
-type UserDetailsScreenScreenRouteProp = RouteProp<
-  RootStackParamList,
-  'UserDetails'
->;
-
-interface Props {
-  route: UserDetailsScreenScreenRouteProp;
-  navigation: UserDetailsScreenNavigationProp;
-}
+interface Props extends MainStackNavProps<'UserDetails'> {}
 
 const UserDetailsScreen = (props: Props): JSX.Element => {
   const user = props.route.params.user;
