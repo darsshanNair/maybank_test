@@ -9,7 +9,6 @@ import {
   View,
   TextInput,
 } from 'react-native';
-import GetLocation from 'react-native-get-location';
 import { MainStackNavProps } from '../../components/navigationComponents/stacks/MainStack';
 import provideUserProps, {
   UserProps,
@@ -26,28 +25,8 @@ const NewUserScreen = (props: Props): JSX.Element => {
   const [isLocationFieldEnabled, setLocationFieldEnabled] = useState(false);
 
   useEffect(() => {
-    GetLocation.getCurrentPosition({
-      enableHighAccuracy: true,
-      timeout: 15000,
-    })
-      .then(location => {
-        var addressProp = newUserForm.address;
-        var geolocation = {
-          lat: location.latitude.toString(),
-          lng: location.longitude.toString(),
-        };
-        addressProp.geo = geolocation;
-
-        setFormFields({ ...newUserForm, address: addressProp });
-      })
-      .catch(error => {
-        Alert.alert(
-          'Location Exception',
-          'Something went wrong with retrieving your current location. Please enter it manually.',
-          [{ text: 'OK', onPress: () => setLocationFieldEnabled(true) }],
-        );
-      });
-  }, []);
+    props.getUserLocation();
+  }, [props.userState.userLocationInfo.location]);
 
   const addNewUser = () => {
     const { name, username, email, phone, address } = newUserForm;

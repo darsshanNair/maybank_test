@@ -6,12 +6,17 @@ import { UserState } from '../../states/user/states';
 
 export interface UserProps {
   getUser: () => Action;
+  getUserLocation: () => Action;
   addUser: (user: User) => Action;
   userState: UserState;
 }
 
 export const getUser = () => ({
   type: UserActions.GET_USER,
+});
+
+export const getUserLocation = () => ({
+  type: UserActions.GET_USER_LOCATION,
 });
 
 export const addUser = (user: User) => ({
@@ -25,6 +30,7 @@ export const addUser = (user: User) => ({
 
 const mapDispatchToProps = {
   getUser,
+  getUserLocation,
   addUser,
 };
 
