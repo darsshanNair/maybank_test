@@ -53,11 +53,11 @@ const HomeScreen = (props: Props): JSX.Element => {
         />
         <FlatList
           ItemSeparatorComponent={ItemSeparator}
-          data={props.userState.user.users}
+          data={props.userState.userInfo.users}
           renderItem={renderItem}
           keyExtractor={(item: User) => item.id.toString()}
           contentContainerStyle={styles.flatlistView}
-          refreshing={props.userState.user.loading}
+          refreshing={props.userState.userInfo.loading}
           onRefresh={() => {
             props.getUser();
           }}

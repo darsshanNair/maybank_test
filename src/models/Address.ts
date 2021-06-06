@@ -6,7 +6,7 @@ export interface Address {
   geo: Location;
 }
 
-interface Location {
+export interface Location {
   lat: string;
   lng: string;
 }

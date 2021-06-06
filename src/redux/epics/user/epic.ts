@@ -1,10 +1,13 @@
 import { ofType } from 'redux-observable';
-import { switchMap, map, catchError, mapTo, delay } from 'rxjs/operators';
+import { switchMap, map, catchError, mergeMap } from 'rxjs/operators';
 import { ajax, AjaxError, AjaxResponse } from 'rxjs/ajax';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { BASE_SERVICE_URL } from '../../../common/AppConstants';
 import * as UserActions from '../../actions/user/actions';
 import { User } from '../../../models/User';
+import { ILocationService } from '../../../services/ILocationService';
+import LocationService from '../../../services/LocationService';
+import { Location } from '../../../models/Address';
 
 export function fetchUsersEpic(action$: any) {
   return action$.pipe(
@@ -35,7 +38,7 @@ export function fetchUsersEpic(action$: any) {
   );
 }
 
-export function addUserEpic(action$): Observable<any> {
+export function addUserEpic(action$: any): Observable<any> {
   return action$.pipe(
     ofType(UserActions.ADD_USER),
     map((action: any) => {
@@ -52,6 +55,33 @@ export function addUserEpic(action$): Observable<any> {
           payload: 'Add user exception',
         };
       }
+    }),
+  );
+}
+
+export function getUserLocationEpic(action$: any) {
+  return action$.pipe(
+    ofType(UserActions.GET_USER_LOCATION),
+    switchMap(() => {
+      var service: ILocationService = new LocationService();
+      return from(service.getLatitudeAndLongitude()).pipe(
+        mergeMap((result: Location) =>
+          of({
+            type: UserActions.GET_USER_LOCATION_SUCCESS,
+            payload: result,
+          }),
+        ),
+        catchError(
+          (exception): Observable<any> => {
+            console.log(exception);
+            const error = {
+              type: UserActions.GET_USER_LOCATION_FAILURE,
+              payload: 'Error getting user location',
+            };
+            return of(error);
+          },
+        ),
+      );
     }),
   );
 }
